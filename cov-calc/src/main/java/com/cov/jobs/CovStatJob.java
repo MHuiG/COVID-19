@@ -26,7 +26,7 @@ public class CovStatJob {
         Logger.getLogger("org.spark_project").setLevel(Level.WARN);
         //1.构建入口对象
         SparkConf conf = new SparkConf()
-                .setAppName("CovStatJob")
+                .setAppName("CovJob")
                 .setMaster("local[*]");
         /*
         每隔两秒从Kafka读取一次数据，完成计算
@@ -39,41 +39,26 @@ public class CovStatJob {
         messages.print();
 
         //3.从拉取到计算
-        /*
-        foreachRDD: 遍历集合中的每一个元素
-         */
         messages.foreachRDD((JavaPairRDD<String, String> rdd, Time time) ->{
             if(!rdd.isEmpty()){
                 //rdd有数据
-                System.out.println("--------------------------------");
+                System.out.println("rdd");
+                /*System.out.println("--------------------------------");
                 System.out.println("Time: " + time);
-                System.out.println("--------------------------------");
-
-//                processRDD(rdd);
+                System.out.println("--------------------------------");*/
             }
         });
         jsc.start();
         jsc.awaitTermination();
     }
-//    private  static void processRDD(JavaPairRDD<String, String> rdd){
-//        JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
-//            return CovLog.json2Bean(kv._2);
-//        }).filter(vLog -> vLog != null);
-//        //vehicleRDD.foreach(vLog -> System.out.println(vLog));
-//        calcTarget(covRDD);
-//
-//        //System.out.println("Count: " + rdd.count());
-//    }
-//    private static  void calcTarget(JavaRDD<CovLog> covRDD) {
-//
-//    }
+
     private static JavaPairInputDStream<String, String> createKafkaMsg(JavaStreamingContext jsc){
         Map<String, String> KafkaParams = new HashMap<>();
         KafkaParams.put("bootstrap.servers", "192.168.52.100:9092");
         KafkaParams.put("group.id", "cov-group"); //Kafka指定消费者组
         KafkaParams.put("auto.offset.reset", "largest");
         Set<String> topics = new HashSet<>();
-        topics.add("covid-19");
+        topics.add("cov");
 
         JavaPairInputDStream<String, String> messages = KafkaUtils.createDirectStream(jsc,
                 String.class, String.class,
