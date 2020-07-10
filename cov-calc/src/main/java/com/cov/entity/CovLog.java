@@ -73,10 +73,10 @@ public class CovLog implements Serializable{
     public String toString() {
         return "covLog{" +
                 "date='" + date + '\'' +
-                "state='" + state + '\'' +
-                "fips='" + fips + '\'' +
-                "cases='" + cases + '\'' +
-                "deaths='" + deaths + '\'' +
+                ", state='" + state + '\'' +
+                ", fips='" + fips + '\'' +
+                ", cases='" + cases + '\'' +
+                ", deaths='" + deaths + '\'' +
                 '}';
     }
 }
