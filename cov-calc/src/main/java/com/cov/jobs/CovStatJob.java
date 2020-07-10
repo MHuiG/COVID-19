@@ -22,6 +22,20 @@ import java.util.Set;
 
 
 public class CovStatJob {
+    private static JavaPairInputDStream<String, String> createKafkaMsg(JavaStreamingContext jsc){
+        Map<String, String> KafkaParams = new HashMap<>();
+        KafkaParams.put("bootstrap.servers", "192.168.52.100:9092");
+        KafkaParams.put("group.id", "cov-group"); //Kafka指定消费者组
+        KafkaParams.put("auto.offset.reset", "smallest");
+        Set<String> topics = new HashSet<>();
+        topics.add("cov");
+
+        JavaPairInputDStream<String, String> messages = KafkaUtils.createDirectStream(jsc,
+                String.class, String.class,
+                StringDecoder.class, StringDecoder.class,
+                KafkaParams, topics);
+        return messages;
+    }
     public static void main(String[] args) throws InterruptedException {
         //屏蔽相关的日志
         Logger.getLogger("org.apache.spark").setLevel(Level.WARN);
@@ -57,21 +71,11 @@ public class CovStatJob {
     private static void processRDD(JavaPairRDD<String, String> rdd) {
         JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
             return CovLog.Str2Bean(kv._2);
-        });
-
+        }).filter(log -> log != null);
+        calcTagert(covRDD);
     }
-    private static JavaPairInputDStream<String, String> createKafkaMsg(JavaStreamingContext jsc){
-        Map<String, String> KafkaParams = new HashMap<>();
-        KafkaParams.put("bootstrap.servers", "192.168.52.100:9092");
-        KafkaParams.put("group.id", "cov-group"); //Kafka指定消费者组
-        KafkaParams.put("auto.offset.reset", "smallest");
-        Set<String> topics = new HashSet<>();
-        topics.add("cov");
-
-        JavaPairInputDStream<String, String> messages = KafkaUtils.createDirectStream(jsc,
-                String.class, String.class,
-                StringDecoder.class, StringDecoder.class,
-                KafkaParams, topics);
-        return messages;
+    private static void calcTagert(JavaRDD<CovLog> covRDD) {
+        System.out.println(covRDD.first());
     }
+
 }
