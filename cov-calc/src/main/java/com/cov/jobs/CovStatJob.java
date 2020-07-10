@@ -1,16 +1,19 @@
 package com.cov.jobs;
 
+import com.cov.entity.CovLog;
 import kafka.serializer.StringDecoder;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.Time;
 import org.apache.spark.streaming.api.java.JavaPairInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaUtils;
+import scala.Tuple2;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,21 +45,26 @@ public class CovStatJob {
         messages.foreachRDD((JavaPairRDD<String, String> rdd, Time time) ->{
             if(!rdd.isEmpty()){
                 //rdd有数据
-                System.out.println("rdd");
-                /*System.out.println("--------------------------------");
+                System.out.println("--------------------------------");
                 System.out.println("Time: " + time);
-                System.out.println("--------------------------------");*/
+                System.out.println("--------------------------------");
+                processRDD(rdd);
             }
         });
         jsc.start();
         jsc.awaitTermination();
     }
+    private static void processRDD(JavaPairRDD<String, String> rdd) {
+        JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
+            return CovLog.Str2Bean(kv._2);
+        });
 
+    }
     private static JavaPairInputDStream<String, String> createKafkaMsg(JavaStreamingContext jsc){
         Map<String, String> KafkaParams = new HashMap<>();
         KafkaParams.put("bootstrap.servers", "192.168.52.100:9092");
         KafkaParams.put("group.id", "cov-group"); //Kafka指定消费者组
-        KafkaParams.put("auto.offset.reset", "largest");
+        KafkaParams.put("auto.offset.reset", "smallest");
         Set<String> topics = new HashSet<>();
         topics.add("cov");
 
