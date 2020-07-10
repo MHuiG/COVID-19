@@ -4,11 +4,11 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class VehicleLog implements Serializable{
+public class CovLog implements Serializable{
     private String did;
 
-    public static VehicleLog json2Bean(String jsonStr) {
-        VehicleLog vehicleLog = new VehicleLog();
+    public static CovLog json2Bean(String jsonStr) {
+        CovLog vehicleLog = new CovLog();
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
