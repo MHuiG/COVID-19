@@ -69,6 +69,7 @@ public class CovStatJob {
         jsc.awaitTermination();
     }
     private static void processRDD(JavaPairRDD<String, String> rdd) {
+        System.out.println(rdd.count());
         JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
             return CovLog.Str2Bean(kv._2);
         }).filter(log -> log != null);

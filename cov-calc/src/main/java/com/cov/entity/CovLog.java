@@ -1,68 +1,44 @@
 package com.cov.entity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class CovLog implements Serializable{
-    private String  date;
-    private String  state;
-    private String  fips;
-    private int  cases;
-    private int  deaths;
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getFips() {
-        return fips;
-    }
-
-    public void setFips(String fips) {
-        this.fips = fips;
-    }
-
-    public int getCases() {
-        return cases;
-    }
-
-    public void setCases(int cases) {
-        this.cases = cases;
-    }
-
-    public int getDeaths() {
-        return deaths;
-    }
-
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
+    private String  id;
+    private String  name;
+    private ArrayList<Log>  series;
 
     public static CovLog Str2Bean(String Str) {
         CovLog covLog = new CovLog();
         try {
-            String[] a = Str.split(",");
-            String  date=a[0];
-            String  state=a[1];
-            String  fips=a[2];
-            int cases= Integer.valueOf(a[3]);
-            int deaths=Integer.valueOf(a[4]);
-            covLog.setDate(date);
-            covLog.setState(state);
-            covLog.setFips(fips);
-            covLog.setCases(cases);
-            covLog.setDeaths(deaths);
+            JSONObject jsonObj = new JSONObject(Str);
+            String  id = jsonObj.getString("id");
+            String  name = jsonObj.getString("name");
+            JSONArray series =jsonObj.getJSONArray("series");
+            ArrayList<Log> logs=new ArrayList<>();
+
+            for (int i = 0; i < series.length(); i++) {
+                JSONObject one=series.getJSONObject(i);
+                Log log=new Log();
+                log.setDate(one.getString("date"));
+                log.setDeathsRatio(one.getDouble("deathsRatio"));
+                log.setCuresNum(one.getInt("curesNum"));
+                log.setConfirmedIncr(one.getInt("confirmedIncr"));
+                log.setConfirmedNum(one.getInt("confirmedNum"));
+                log.setDeathsNum(one.getInt("deathsNum"));
+                log.setConfirmedIncr(one.getInt("asymptomaticIncr"));
+                log.setCuresNum(one.getInt("curesRatio"));
+                log.setTreatingNum(one.getInt("treatingNum"));
+                log.setAsymptomaticNum(one.getInt("asymptomaticNum"));
+                logs.add(log);
+            }
+
+            covLog.setId(id);
+            covLog.setName(name);
+            covLog.setSeries(logs);
         } catch (Exception e) {
             return null;
         }
@@ -72,11 +48,33 @@ public class CovLog implements Serializable{
     @Override
     public String toString() {
         return "covLog{" +
-                "date='" + date + '\'' +
-                ", state='" + state + '\'' +
-                ", fips='" + fips + '\'' +
-                ", cases='" + cases + '\'' +
-                ", deaths='" + deaths + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", series='" + series.toString() + '\'' +
                 '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Log> getSeries() {
+        return series;
+    }
+
+    public void setSeries(ArrayList<Log> series) {
+        this.series = series;
     }
 }
