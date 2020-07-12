@@ -15,20 +15,21 @@ abstract public class BaseController {
     protected abstract void doMessage(String messages, Session session) throws InterruptedException, IOException;
 
     @OnError
-    public void onError(Session session, Throwable error){
+    public void onError(Session session, Throwable error) {
         System.out.println("发生错误");
         error.printStackTrace();
     }
 
     @OnOpen
-    public void onOpen(){
+    public void onOpen() {
         String title = getTitle();
         System.out.println(title + ":连接到服务了*************");
     }
+
     protected abstract String getTitle();
 
     @OnClose
-    public void onClose(){
+    public void onClose() {
         System.out.println("Connection closed....");
     }
 }

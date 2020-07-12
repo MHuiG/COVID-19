@@ -22,7 +22,7 @@ import java.util.Set;
 
 
 public class CovStatJob {
-    private static JavaPairInputDStream<String, String> createKafkaMsg(JavaStreamingContext jsc){
+    private static JavaPairInputDStream<String, String> createKafkaMsg(JavaStreamingContext jsc) {
         Map<String, String> KafkaParams = new HashMap<>();
         KafkaParams.put("bootstrap.servers", "192.168.52.100:9092");
         KafkaParams.put("group.id", "cov-group"); //Kafka指定消费者组
@@ -36,6 +36,7 @@ public class CovStatJob {
                 KafkaParams, topics);
         return messages;
     }
+
     public static void main(String[] args) throws InterruptedException {
         //屏蔽相关的日志
         Logger.getLogger("org.apache.spark").setLevel(Level.WARN);
@@ -56,8 +57,8 @@ public class CovStatJob {
         messages.print();
 
         //3.从拉取到计算
-        messages.foreachRDD((JavaPairRDD<String, String> rdd, Time time) ->{
-            if(!rdd.isEmpty()){
+        messages.foreachRDD((JavaPairRDD<String, String> rdd, Time time) -> {
+            if (!rdd.isEmpty()) {
                 //rdd有数据
                 System.out.println("--------------------------------");
                 System.out.println("Time: " + time);
@@ -68,6 +69,7 @@ public class CovStatJob {
         jsc.start();
         jsc.awaitTermination();
     }
+
     private static void processRDD(JavaPairRDD<String, String> rdd) {
         System.out.println(rdd.count());
         JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
@@ -75,6 +77,7 @@ public class CovStatJob {
         }).filter(log -> log != null);
         calcTagert(covRDD);
     }
+
     private static void calcTagert(JavaRDD<CovLog> covRDD) {
         System.out.println(covRDD.first());
     }

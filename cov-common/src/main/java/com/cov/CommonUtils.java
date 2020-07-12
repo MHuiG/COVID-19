@@ -12,7 +12,8 @@ public class CommonUtils {
 
     /**
      * 通过四舍五入保留n为小数
-     * @param d 被处理的小数
+     *
+     * @param d     被处理的小数
      * @param scale 保留几位
      * @return
      */

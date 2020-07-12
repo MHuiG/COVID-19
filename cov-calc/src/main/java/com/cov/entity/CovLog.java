@@ -6,23 +6,23 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CovLog implements Serializable{
-    private String  id;
-    private String  name;
-    private ArrayList<Log>  series;
+public class CovLog implements Serializable {
+    private String id;
+    private String name;
+    private ArrayList<Log> series;
 
     public static CovLog Str2Bean(String Str) {
         CovLog covLog = new CovLog();
         try {
             JSONObject jsonObj = new JSONObject(Str);
-            String  id = jsonObj.getString("id");
-            String  name = jsonObj.getString("name");
-            JSONArray series =jsonObj.getJSONArray("series");
-            ArrayList<Log> logs=new ArrayList<>();
+            String id = jsonObj.getString("id");
+            String name = jsonObj.getString("name");
+            JSONArray series = jsonObj.getJSONArray("series");
+            ArrayList<Log> logs = new ArrayList<>();
 
             for (int i = 0; i < series.length(); i++) {
-                JSONObject one=series.getJSONObject(i);
-                Log log=new Log();
+                JSONObject one = series.getJSONObject(i);
+                Log log = new Log();
                 log.setDate(one.getString("date"));
                 log.setDeathsRatio(one.getDouble("deathsRatio"));
                 log.setCuresNum(one.getInt("curesNum"));

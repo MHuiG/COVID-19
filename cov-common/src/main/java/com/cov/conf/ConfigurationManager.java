@@ -19,7 +19,7 @@ public class ConfigurationManager {
         }
     }
 
-    private static InputStream loadStream(String filename){
+    private static InputStream loadStream(String filename) {
         return ConfigurationManager.class.getClassLoader().getResourceAsStream(filename);
     }
 

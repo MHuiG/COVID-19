@@ -13,6 +13,7 @@ public class Log implements Serializable {
     private int confirmedIncr;
     private int asymptomaticNum;
     private int asymptomaticIncr;
+
     @Override
     public String toString() {
         return "Log{" +
@@ -28,6 +29,7 @@ public class Log implements Serializable {
                 ", asymptomaticIncr='" + asymptomaticIncr + '\'' +
                 '}';
     }
+
     public String getDate() {
         return date;
     }
