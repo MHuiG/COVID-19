@@ -3,12 +3,6 @@ package com.cov;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * @Description TODO
- * @Author deshenglijun
- * @Date 2020/5/30 19:37
- * @Version 1.0
- */
 public class PropertiesUtil {
 
     public static String getStringByKey(String filename, String key) {
