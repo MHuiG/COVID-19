@@ -16,7 +16,9 @@
             $("html").css({ fontSize: whei / 20 })
         });
     });
-</script><script type="text/javascript" src="js/echarts.min.js"></script>
+</script>
+<script src="app/echarts.min.js"></script>
+<script src="app/USA.js"></script>
 <script language="JavaScript" src="js/js.js"></script>
 <style class="mpa-style-fix ImageGatherer">.FotorFrame{position:fixed!important}</style>
 <style class="mpa-style-fix SideFunctionPanel">.weui-desktop-online-faq__wrp{top:304px!important;bottom:none!important}.weui-desktop-online-faq__wrp .weui-desktop-online-faq__switch{width:38px!important}</style>
@@ -25,9 +27,13 @@
 
 
 <body mpa-version="6.10.2" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
-    <div class="canvas" style="opacity: .2">
-<!--        <iframe frameborder="0" src="bg.html" style="width: 100%; height: 100%"></iframe>-->
+
+<div class="canvas" style="opacity: .2">
+
     </div>
+
+
+
     <div class="loading" style="display: none;">
         <div class="loadbox"> <img src="img/loading.gif"> 页面加载中... </div>
     </div>
@@ -95,9 +101,25 @@
                     <div class="map1"><img src="img/lbx.png"></div>
                     <div class="map2"><img src="img/jt.png"></div>
                     <div class="map3"><img src="img/map.png"></div>
-                    <div class="map4" id="map_1" _echarts_instance_="ec_1577239837065" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"><div style="position: relative; overflow: hidden; width: 1078px; height: 478px; padding: 0px; margin: 0px; border-width: 0px; cursor: pointer;"><canvas data-zr-dom-id="zr_0" width="1078" height="478" style="position: absolute; left: 0px; top: 0px; width: 1078px; height: 478px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
-                    <!--<div style="position: absolute; bottom: 1%; left: 40%; color: #ffffff"></div>-->
+                    <div class="map4" id="map_1" _echarts_instance_="ec_1577239837065" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                        <div style="position: relative; overflow: hidden; width: 1078px; height: 478px; padding: 0px; margin: 0px; border-width: 0px; cursor: pointer;">
+                            <div id='美国' class='citymap'></div>
+                            <style>
+                                .citymap{
+                                    margin:0 0 0 50px;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: transparent !important;
+                                }
+                            </style>
+                            <script src='app/demo.js'></script>
+                            <script>
+                                make_map('美国', '美国');
+                            </script>
+                        </div>
+                    </div>
                 </div>
+
             </li>
             <li>
                 <div class="boxall" style="height:3.2rem">
@@ -110,12 +132,6 @@
                     <div class="allnav" id="echart5" _echarts_instance_="ec_1577239837063" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"><div style="position: relative; overflow: hidden; width: 365px; height: 159px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="365" height="159" style="position: absolute; left: 0px; top: 0px; width: 365px; height: 159px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
                     <div class="boxfoot"></div>
                 </div>
-                <!--<div class="boxall" style="height: 3rem">-->
-                    <!--<div class="alltitle">模块标题样式</div>-->
-                    <!--<div class="allnav" id="echart6" _echarts_instance_="ec_1577239837064" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"><div style="position: relative; overflow: hidden; width: 365px; height: 146px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="365" height="146" style="position: absolute; left: 0px; top: 0px; width: 365px; height: 146px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>-->
-                    <!--<div class="boxfoot"></div>-->
-                <!--</div>-->
-                <!--修改-->
                 <div class="boxall" style="height: 3.2rem">
                     <div class="alltitle">世界疫情</div>
                     <div class="allnav" id="echart5_1" _echarts_instance_="ec_1577239837064" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"><div style="position: relative; overflow: hidden; width: 365px; height: 159px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="365" height="159" style="position: absolute; left: 0px; top: 0px; width: 365px; height: 159px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
@@ -127,8 +143,6 @@
     <div class="back"></div>
 
 
-    <script type="text/javascript" src="js/china.js"></script>
-    <script type="text/javascript" src="js/area_echarts1.js"></script>
     <script>
         $(function () {
             $.ajax({
@@ -142,14 +156,6 @@
             })
         });
     </script>
-    
-    <div class="mpa-sc article-gatherer new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-article-gatherer"></div>
-    <div class="mpa-sc image-gatherer new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-image-gatherer"></div>
-    <div class="mpa-sc page-clipper new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-page-clipper"></div>
-    <div class="mpa-sc global-search new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-global-search"></div>
-    <div class="mpa-sc text-gatherer new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-text-gatherer"></div>
-    <div class="mpa-sc video-gatherer new mpa-rootsc" data-z="100" style="display: block;" id="mpa-rootsc-video-gatherer"></div>
-    <div class="mpa-sc side-function-panel new mpa-rootsc" data-z="110" style="display: block;" id="mpa-rootsc-side-function-panel"></div>
-    <div class="mpa-sc notifier new mpa-rootsc" data-z="120" style="display: block;" id="mpa-rootsc-notifier"></div>
-    <div class="mpa-sc notification-manager new mpa-rootsc" data-z="130" style="display: block;" id="mpa-rootsc-notification-manager"></div>
-</body></html>
+
+    </body>
+</html>

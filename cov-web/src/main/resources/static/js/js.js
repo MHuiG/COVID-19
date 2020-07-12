@@ -1,5 +1,4 @@
-﻿
-$(function () {
+﻿$(function () {
     $.ajax({
         url: '/get_chart_data',
         type: 'get',

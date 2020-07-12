@@ -15,6 +15,26 @@ function make_map(cityname, dom_id){
   "confirmedIncr":593,"asymptomaticNum":0,"asymptomaticIncr":0},
 ];
 
+	var socket;
+	$("#connect").click(function(event){
+		socket = new WebSocket("ws://127.0.0.1:8000/get_map_data");
+		socket.onopen = function(){
+			alert("Socket has been opened");
+		}
+		socket.onmessage = function(msg){
+			alert(msg.data);
+		}
+		socket.onclose = function() {
+			alert("Socket has been closed");
+		}
+	});
+	$("#send").click(function(event){
+		socket.send("send from client");
+	});
+	$("#close").click(function(event){
+		socket.close();
+	})
+
 for(var i=0;i<data.length;i++){
     data[i].value=data[i].curesNum;
 }
@@ -36,8 +56,8 @@ for(var i=0;i<data.length;i++){
 		  color: "#000",
 		  fontSize: 18
 		},
-		subtext: "美国疫情",
-		text: cityname,
+		subtext: "",
+		text: "",
 		top: "auto",
 		subtextStyle: {
 		  color: "#aaa",
@@ -63,7 +83,8 @@ for(var i=0;i<data.length;i++){
 		max: 500000,
 		text: ['High', 'Low'],
 		realtime: false,
-		calculable: true,
+		calculable: false,
+		show: false,
 		inRange: {
 			color: ["#0ff","#ff0","#f00"]
 		}
