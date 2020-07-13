@@ -55,7 +55,8 @@ function make_map(mapdata) {
                 calculable: false,
                 show: false,
                 inRange: {
-                    color: ["#0ff", "#ff0", "#f00"]
+                    color: ["#eeff11", "#ffe10a", "#ff840c", "#ff3e09",
+                        "#ff3209", "#ff125d", "#ff18da"]
                 }
             },
             "series": [{
