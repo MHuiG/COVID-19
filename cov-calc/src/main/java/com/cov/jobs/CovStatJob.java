@@ -73,7 +73,7 @@ public class CovStatJob {
     }
 
     private static void processRDD(JavaPairRDD<String, String> rdd) {
-        JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
+        JavaRDD<CovLog> covRDD = rdd.distinct().map((Tuple2<String, String> kv) -> {
             return CovLog.Str2Bean(kv._2);
         }).filter(log -> log != null);
         calcTagert(covRDD);
@@ -89,7 +89,7 @@ public class CovStatJob {
             JSONObject jsonObj = new JSONObject(mapBean);
             return jsonObj.toString();
         }).collect();
-        System.out.println(jsonObjects.toString());
+        System.out.println(jsonObjects.size());
         jedis.hset("cov", "map", jsonObjects.toString());
         JedisUtil.release(jedis);
 
