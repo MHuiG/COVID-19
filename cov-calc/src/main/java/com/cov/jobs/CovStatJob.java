@@ -1,6 +1,9 @@
 package com.cov.jobs;
 
 import com.cov.entity.CovLog;
+import com.cov.entity.Log;
+import com.cov.entity.MapBean;
+import com.cov.redis.JedisUtil;
 import kafka.serializer.StringDecoder;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -13,12 +16,11 @@ import org.apache.spark.streaming.Time;
 import org.apache.spark.streaming.api.java.JavaPairInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka.KafkaUtils;
+import org.json.JSONObject;
+import redis.clients.jedis.Jedis;
 import scala.Tuple2;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class CovStatJob {
@@ -54,7 +56,7 @@ public class CovStatJob {
         //2.从Kafka读取数据
         JavaPairInputDStream<String, String> messages = createKafkaMsg(jsc);
         //测试
-        messages.print();
+//        messages.print();
 
         //3.从拉取到计算
         messages.foreachRDD((JavaPairRDD<String, String> rdd, Time time) -> {
@@ -62,7 +64,6 @@ public class CovStatJob {
                 //rdd有数据
                 System.out.println("--------------------------------");
                 System.out.println("Time: " + time);
-                System.out.println("RDD: " + rdd.toString());
                 System.out.println("--------------------------------");
                 processRDD(rdd);
             }
@@ -72,7 +73,6 @@ public class CovStatJob {
     }
 
     private static void processRDD(JavaPairRDD<String, String> rdd) {
-        System.out.println(rdd.count());
         JavaRDD<CovLog> covRDD = rdd.map((Tuple2<String, String> kv) -> {
             return CovLog.Str2Bean(kv._2);
         }).filter(log -> log != null);
@@ -80,7 +80,19 @@ public class CovStatJob {
     }
 
     private static void calcTagert(JavaRDD<CovLog> covRDD) {
-        System.out.println(covRDD.first());
+        Jedis jedis = JedisUtil.getJedis();
+        List<String> jsonObjects = covRDD.map((x) -> {
+            // Map
+            ArrayList<Log> logs = x.getSeries();
+            Log log = logs.get(0);
+            MapBean mapBean = new MapBean(x.getName(), log.getConfirmedNum(), log.getCuresNum(), log.getDeathsNum(), log.getCuresRatio(), log.getDeathsRatio(), log.getTreatingNum(), log.getConfirmedIncr(), log.getAsymptomaticNum(), log.getAsymptomaticIncr());
+            JSONObject jsonObj = new JSONObject(mapBean);
+            return jsonObj.toString();
+        }).collect();
+        System.out.println(jsonObjects.toString());
+        jedis.hset("cov", "map", jsonObjects.toString());
+        JedisUtil.release(jedis);
+
     }
 
 }
