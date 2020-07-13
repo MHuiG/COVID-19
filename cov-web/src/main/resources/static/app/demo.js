@@ -1,47 +1,35 @@
-function make_map(cityname, dom_id) {
-    achart = echarts.init(document.getElementById(dom_id));
-    var data = [
-        {
-            name: "Wisconsin", "curesNum": 29101, "deathsNum": 15553,
-            "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
-            "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
-        },
-        {
-            name: "Wyoming", "curesNum": 29101, "deathsNum": 15553,
-            "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
-            "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
-        },
-        {
-            name: "Puerto Rico", "curesNum": 29101, "deathsNum": 15553,
-            "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
-            "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
-        },
-        {
-            "name": "Oregon", "curesNum": 29101, "deathsNum": 15553,
-            "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
-            "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
-        },
-    ];
+function make_map() {
+    achart = echarts.init(document.getElementById("美国"));
 
-    var socket;
-    $("#connect").click(function (event) {
-        socket = new WebSocket("ws://127.0.0.1:8000/get_map_data");
-        socket.onopen = function () {
-            alert("Socket has been opened");
-        }
-        socket.onmessage = function (msg) {
-            alert(msg.data);
-        }
-        socket.onclose = function () {
-            alert("Socket has been closed");
-        }
-    });
-    $("#send").click(function (event) {
-        socket.send("send from client");
-    });
-    $("#close").click(function (event) {
-        socket.close();
-    })
+
+
+    var data = JSON.parse(window.mapdata);
+    console.log(data+"==========================^")
+
+    // var data =[
+    //     {
+    //         name: "Wisconsin", "curesNum": 29101, "deathsNum": 15553,
+    //         "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
+    //         "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
+    //     },
+    //     {
+    //         name: "Wyoming", "curesNum": 29101, "deathsNum": 15553,
+    //         "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
+    //         "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
+    //     },
+    //     {
+    //         name: "Puerto Rico", "curesNum": 29101, "deathsNum": 15553,
+    //         "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
+    //         "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
+    //     },
+    //     {
+    //         "name": "Oregon", "curesNum": 29101, "deathsNum": 15553,
+    //         "curesRatio": 0.16328879, "deathsRatio": 0.08726952, "treatingNum": 133564,
+    //         "confirmedIncr": 593, "asymptomaticNum": 0, "asymptomaticIncr": 0
+    //     },
+    // ];
+
+
 
     for (var i = 0; i < data.length; i++) {
         data[i].value = data[i].curesNum;
@@ -98,7 +86,7 @@ function make_map(cityname, dom_id) {
             }
         },
         "series": [{
-            "mapType": cityname,
+            "mapType": "美国",
             "data": data,
             "symbol": "circle",
             "roam": false,
@@ -107,7 +95,6 @@ function make_map(cityname, dom_id) {
         },
         ],
     }
-
     achart.setOption(option);
 }
 

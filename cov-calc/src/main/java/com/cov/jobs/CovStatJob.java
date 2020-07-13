@@ -62,6 +62,7 @@ public class CovStatJob {
                 //rdd有数据
                 System.out.println("--------------------------------");
                 System.out.println("Time: " + time);
+                System.out.println("RDD: " + rdd.toString());
                 System.out.println("--------------------------------");
                 processRDD(rdd);
             }

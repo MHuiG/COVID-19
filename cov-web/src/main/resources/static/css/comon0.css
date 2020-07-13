@@ -63,11 +63,7 @@ a:hover {
     text-decoration: none !important
 }
 
-.citymap {
-    /*margin:150px 0 0 400px;*/
-    width: 250px;
-    height: 250px;
-}
+
 
 .clearfix:after, .clearfix:before {
     display: table;

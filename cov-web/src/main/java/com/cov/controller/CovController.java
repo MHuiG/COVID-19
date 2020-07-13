@@ -11,7 +11,7 @@ import java.io.IOException;
 
 
 @Controller
-@ServerEndpoint("/test/test")
+@ServerEndpoint("/get_map_data")
 public class CovController extends BaseController {
 
     private static CovService covService;
@@ -24,8 +24,8 @@ public class CovController extends BaseController {
     @Override
     protected void doMessage(String messages, Session session) throws InterruptedException, IOException {
         while (true) {
-            String total = covService.test();
-            System.out.println("covService.test===>" + total);
+            String total =  covService.test();
+            System.out.println("covService.test===============================>" + total);
             session.getBasicRemote().sendText(total);
             Thread.sleep(1000);
         }
