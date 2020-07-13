@@ -18,13 +18,13 @@ public class CovController extends BaseController {
 
     @Override
     protected String getTitle() {
-        return "all_cov";
+        return "get_map_data";
     }
 
     @Override
     protected void doMessage(String messages, Session session) throws InterruptedException, IOException {
         while (true) {
-            String total =  covService.test();
+            String total = covService.test();
             System.out.println("covService.test===============================>" + total);
             session.getBasicRemote().sendText(total);
             Thread.sleep(1000);

@@ -16,3 +16,6 @@ ws.onclose = function () {
     // 关闭 websocket
     console.log("连接已关闭...");
 };
+ws.onerror = function (event) {
+
+};

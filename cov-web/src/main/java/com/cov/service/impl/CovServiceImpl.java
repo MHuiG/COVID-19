@@ -13,6 +13,7 @@ public class CovServiceImpl implements CovService {
     public String test() {
         Jedis jedis = JedisUtil.getJedis();
         Map<String, String> city_data = jedis.hgetAll("cov");
+        JedisUtil.release(jedis);
         System.out.println(city_data.get("map"));
         return city_data.get("map");
     }
