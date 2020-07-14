@@ -1,6 +1,27 @@
-function echarts_8(data) {
+var datas = [];
+var names = [];
+var values = [];
+$.get("http://api.tianapi.com/txapi/ncovabroad/index?key=82611c2b6ffe5174234c44eb5e592ff1",
+    function (data, status) {
+        datas.push(data["newslist"][1]);
+        datas.push(data["newslist"][2]);
+        datas.push(data["newslist"][3]);
+        datas.push(data["newslist"][4]);
+        datas.push(data["newslist"][5]);
+        for (var i = 0; i < 5; i++) {
+            names.push(datas[i]["provinceName"])
+            values.push(datas[i]["confirmedCount"])
+        }
+        console.log(datas)
+        console.log(names)
+        echarts_8(names, values)
+        // alert("状态码：" + data.code + "\n消息：" + data.msg);
+    });
+
+function echarts_8(names, values) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart5_1'));
+
 
     option = {
         //  backgroundColor: '#00265f',
@@ -20,8 +41,9 @@ function echarts_8(data) {
         },
         xAxis: [{
             type: 'category',
-            data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
+            // data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
             // data: data['x_name'],
+            data: names,
             axisLine: {
                 show: true,
                 lineStyle: {
@@ -74,8 +96,9 @@ function echarts_8(data) {
         }],
         series: [{
             type: 'bar',
-            data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
+            // data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
             // data: data['data'],
+            data: values,
             barWidth: '35%', //柱子宽度
             // barGap: 1, //柱子之间间距
             itemStyle: {

@@ -41,8 +41,8 @@ function echarts_4(data) {
                 labelLine: {show: false},
                 // data: data
                 data: [
-                    {value: 5, name: '电子商务'},
-                    {value: 1, name: '教育'},
+                    {value: 5, name: '确诊'},
+                    {value: 1, name: '治愈'},
                 ]
             }
         ]

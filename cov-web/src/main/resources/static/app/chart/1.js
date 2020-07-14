@@ -29,7 +29,6 @@ function echarts_1(data) {
     for (var i = data.length - 5; i < data.length; i++) {
         names.push(data[i].name);
         values.push(data[i]);
-
     }
     // console.log(names);
     // console.log(values);
@@ -37,13 +36,13 @@ function echarts_1(data) {
     option = {
         //  backgroundColor: '#00265f',
         tooltip: {
-            trigger: 'item',
+            trigger: 'axis',
             axisPointer: {
                 type: 'shadow'
             },
-            formatter: function (params) {
-                return params["data"].name + "<br/>" + params["data"].value
-            }
+            // formatter: function (params) {
+            //     return params["data"].name + "<br/>" + params["data"].value
+            // }
         },
         grid: {
             left: '0%',

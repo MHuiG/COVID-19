@@ -39,8 +39,8 @@ function echarts_5(data) {
                 labelLine: {show: false},
                 // data: data
                 data: [
-                    {value: 2, name: '汽车'},
-                    {value: 3, name: '旅游'},
+                    {value: 2, name: '死亡'},
+                    {value: 3, name: '治愈'},
                 ]
             }
         ]
