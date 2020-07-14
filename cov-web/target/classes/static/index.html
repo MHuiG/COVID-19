@@ -6,6 +6,8 @@
     <title>Hello</title>
     <script type="text/javascript" src="js/jquery.js"></script>
     <link rel="stylesheet" href="css/comon0.css">
+    <script src="app/map/echarts.min.js"></script>
+    <script src="app/map/USA.js"></script>
     <script>
         $(window).load(function () {
             $(".loading").fadeOut()
@@ -19,31 +21,24 @@
             });
         });
     </script>
-    <script src="app/echarts.min.js"></script>
-    <script src="app/USA.js"></script>
-<!--    <script language="JavaScript" src="js/js.js"></script>-->
-    <script language="JavaScript" src="js/index.js"></script>
-    <style class="mpa-style-fix ImageGatherer">.FotorFrame {
-        position: fixed !important
-    }</style>
-    <style class="mpa-style-fix SideFunctionPanel">.weui-desktop-online-faq__wrp {
-        top: 304px !important;
-        bottom: none !important
-    }
+    <style class="mpa-style-fix ImageGatherer">
+        .FotorFrame {
+            position: fixed !important
+        }
+    </style>
+    <style class="mpa-style-fix SideFunctionPanel">
+        .weui-desktop-online-faq__wrp {
+            top: 304px !important;
+            bottom: none !important
+        }
 
-    .weui-desktop-online-faq__wrp .weui-desktop-online-faq__switch {
-        width: 38px !important
-    }</style>
+        .weui-desktop-online-faq__wrp .weui-desktop-online-faq__switch {
+            width: 38px !important
+        }</style>
 </head>
 
-
 <body mpa-version="6.10.2" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
-
-<div class="canvas" style="opacity: .2">
-
-</div>
-
-
+<div class="canvas" style="opacity: .2"></div>
 <div class="loading" style="display: none;">
     <div class="loadbox"><img src="img/loading.gif"> 页面加载中...</div>
 </div>
@@ -159,7 +154,7 @@
                                 background: transparent !important;
                             }
                         </style>
-                        <script src='app/demo.js'></script>
+                        <script src='app/map/demo.js'></script>
                         <script>
                             make_map();
                         </script>
@@ -209,21 +204,16 @@
     </ul>
 </div>
 <div class="back"></div>
-
-
-<script>
-    $(function () {
-        $.ajax({
-            type: 'get',
-            url: '/get_ncov_totalcount',
-            dataType: 'json',
-            success: function (res) {
-                document.getElementById("confirm").innerHTML = res['confirmedCount'];
-                document.getElementById("suspect").innerHTML = res['suspectedCount']
-            }
-        })
-    });
-</script>
-
+<script src="app/map/demo.js"></script>
+<script src="app/chart/1.js"></script>
+<script src="app/chart/2.js"></script>
+<script src="app/chart/3.js"></script>
+<script src="app/chart/4.js"></script>
+<script src="app/chart/5.js"></script>
+<script src="app/chart/6.js"></script>
+<script src="app/chart/7.js"></script>
+<script src="app/chart/8.js"></script>
+<script src="app/chart/9.js"></script>
+<script src="app/index.js"></script>
 </body>
 </html>
