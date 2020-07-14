@@ -8,7 +8,6 @@ function echarts_2(data) {
     key:排序项
     */
     function JsonSort(json, key) {
-        //console.log(json);
         for (var j = 1, jl = json.length; j < jl; j++) {
             var temp = json[j],
                 val = temp[key],
@@ -20,7 +19,6 @@ function echarts_2(data) {
             json[i + 1] = temp;
 
         }
-        //console.log(json);
         return json;
     }
 
@@ -31,7 +29,6 @@ function echarts_2(data) {
         values.push(data[i]);
     }
     option = {
-        //  backgroundColor: '#00265f',
         tooltip: {
             trigger: 'axis',
             axisPointer: {type: 'shadow'}
@@ -45,8 +42,6 @@ function echarts_2(data) {
         },
         xAxis: [{
             type: 'category',
-            // data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽'],
-            // data: data['x_name'],
             data: names,
             axisLine: {
                 show: true,
@@ -56,13 +51,11 @@ function echarts_2(data) {
                     type: "solid"
                 },
             },
-
             axisTick: {
                 show: false,
             },
             axisLabel: {
                 interval: 0,
-                // rotate:50,
                 show: true,
                 splitNumber: 15,
                 textStyle: {
@@ -74,7 +67,6 @@ function echarts_2(data) {
         yAxis: [{
             type: 'value',
             axisLabel: {
-                //formatter: '{value} %'
                 show: true,
                 textStyle: {
                     color: "rgba(255,255,255,.6)",
@@ -102,11 +94,8 @@ function echarts_2(data) {
             {
 
                 type: 'bar',
-                // data: [1500, 1200, 600, 200, 300, 300, 900],
-                // data: data['data'],
                 data: values,
                 barWidth: '35%', //柱子宽度
-                // barGap: 1, //柱子之间间距
                 itemStyle: {
                     normal: {
                         color: '#651a00',
@@ -118,8 +107,6 @@ function echarts_2(data) {
 
         ]
     };
-
-    // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     window.addEventListener("resize", function () {
         myChart.resize();

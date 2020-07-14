@@ -3,16 +3,6 @@ MyWebSocket("get_bar1_data", echarts_1);
 MyWebSocket("get_bar2_data", echarts_2);
 MyWebSocket("get_bar7_data", echarts_7);
 MyWebSocket("get_line6_data", echarts_6);
-// echarts_1();
-echarts_2();
-echarts_3();
-echarts_4();
-echarts_5();
-echarts_6();
-// echarts_7();
-// echarts_6();
-echarts_7();
-echarts_8();
 
 function MyWebSocket(url, fun) {
     var ws = new WebSocket("ws://localhost:8080/cov/" + url);

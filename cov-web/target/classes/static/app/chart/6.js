@@ -40,7 +40,6 @@ function echarts_6(data) {
             bottom: '10',
             containLabel: true
         },
-
         xAxis: [{
             type: 'category',
             boundaryGap: false,
@@ -56,18 +55,13 @@ function echarts_6(data) {
                 }
 
             },
-
             data: data.name
         }, {
-
             axisPointer: {show: false},
             axisLine: {show: false},
             position: 'bottom',
             offset: 20,
-
-
         }],
-
         yAxis: [{
             type: 'value',
             axisTick: {show: false},
@@ -82,7 +76,6 @@ function echarts_6(data) {
                     fontSize: 12,
                 },
             },
-
             splitLine: {
                 lineStyle: {
                     color: 'rgba(255,255,255,.1)'
@@ -235,7 +228,6 @@ function echarts_6(data) {
         ]
 
     };
-
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     window.addEventListener("resize", function () {

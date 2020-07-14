@@ -85,14 +85,12 @@ public class CovStatJob {
     private static void calcTagert(JavaRDD<CovLog> covRDD) {
         Jedis jedis = JedisUtil.getJedis();
         List<String> jsonObjects = covRDD.map((x) -> {
-            // Map
             ArrayList<Log> logs = x.getSeries();
             Log log = logs.get(0);
             MapBean mapBean = new MapBean(x.getName(), log.getConfirmedNum(), log.getCuresNum(), log.getDeathsNum(), log.getCuresRatio(), log.getDeathsRatio(), log.getTreatingNum(), log.getConfirmedIncr(), log.getAsymptomaticNum(), log.getAsymptomaticIncr());
             JSONObject jsonObj = new JSONObject(mapBean);
             return jsonObj.toString();
         }).collect();
-//        System.out.println(jsonObjects.size());
         jedis.hset("cov", "map", jsonObjects.toString());
         JedisUtil.release(jedis);
 
@@ -101,14 +99,12 @@ public class CovStatJob {
     private static void bar1Data(JavaRDD<CovLog> covRDD) {
         Jedis jedis = JedisUtil.getJedis();
         List<String> jsonObjects = covRDD.map((x) -> {
-            // Map
             ArrayList<Log> logs = x.getSeries();
             Log log = logs.get(0);
             Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getConfirmedNum());
             JSONObject jsonObj = new JSONObject(bar_bean);
             return jsonObj.toString();
         }).collect();
-//        System.out.println(jsonObjects.size());
         jedis.hset("cov", "bar", jsonObjects.toString());
         JedisUtil.release(jedis);
     }
@@ -116,14 +112,12 @@ public class CovStatJob {
     private static void bar2Data(JavaRDD<CovLog> covRDD) {
         Jedis jedis = JedisUtil.getJedis();
         List<String> jsonObjects = covRDD.map((x) -> {
-            // Map
             ArrayList<Log> logs = x.getSeries();
             Log log = logs.get(0);
             Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getDeathsNum());
             JSONObject jsonObj = new JSONObject(bar_bean);
             return jsonObj.toString();
         }).collect();
-        System.out.println(jsonObjects.size());
         jedis.hset("cov", "bar2", jsonObjects.toString());
         JedisUtil.release(jedis);
     }
@@ -131,14 +125,12 @@ public class CovStatJob {
     private static void bar7Data(JavaRDD<CovLog> covRDD) {
         Jedis jedis = JedisUtil.getJedis();
         List<String> jsonObjects = covRDD.map((x) -> {
-            // Map
             ArrayList<Log> logs = x.getSeries();
             Log log = logs.get(0);
             Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getCuresNum());
             JSONObject jsonObj = new JSONObject(bar_bean);
             return jsonObj.toString();
         }).collect();
-        System.out.println(jsonObjects.size());
         jedis.hset("cov", "bar7", jsonObjects.toString());
         JedisUtil.release(jedis);
     }

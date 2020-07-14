@@ -1,8 +1,6 @@
 function echarts_3(data) {
-    // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('fb1'));
     option = {
-
         title: [{
             text: '确诊与死亡',
             left: 'center',
@@ -47,8 +45,6 @@ function echarts_3(data) {
             }
         ]
     };
-
-    // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     window.addEventListener("resize", function () {
         myChart.resize();
