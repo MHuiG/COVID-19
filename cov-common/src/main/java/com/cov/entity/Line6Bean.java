@@ -7,6 +7,7 @@ public class Line6Bean implements Serializable {
     String type;
     int num;
 
+
     @Override
     public String toString() {
         return "Line6Bean{" +

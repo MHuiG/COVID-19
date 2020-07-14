@@ -7,7 +7,16 @@ function echarts_6(data) {
         data.b = [3, 4, 3, 5, 3, 4, 32, 61, 2, 4, 42, 41, 23, 4, 3, 4, 3, 54, 3, 6, 24, 10, 2, 24];
         data.c = [3, 43, 3, 4, 5, 24, 3, 62, 2, 44, 2, 44, 3, 4, 33, 4, 3, 4, 31, 6, 2, 10, 2, 14];
         data.d = [3, 4, 3, 4, 13, 8, 31, 7, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 53, 6, 22, 10, 22, 44];
+    } else {
+        mydata = data;
+        data = {};
+        data.name = JSON.parse(mydata.name).list;
+        data.a = JSON.parse(mydata.a).list;
+        data.b = JSON.parse(mydata.b).list;
+        data.c = JSON.parse(mydata.c).list;
+        data.d = JSON.parse(mydata.d).list;
     }
+    // console.log(data);
     option = {
         tooltip: {
             trigger: 'axis',
