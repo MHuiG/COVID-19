@@ -77,6 +77,8 @@ public class CovStatJob {
         }).filter(log -> log != null);
         calcTagert(covRDD);
         bar1Data(covRDD);
+        bar2Data(covRDD);
+        bar7Data(covRDD);
         line6Data(covRDD);
     }
 
@@ -99,6 +101,7 @@ public class CovStatJob {
     private static void bar1Data(JavaRDD<CovLog> covRDD) {
         Jedis jedis = JedisUtil.getJedis();
         List<String> jsonObjects = covRDD.map((x) -> {
+            // Map
             ArrayList<Log> logs = x.getSeries();
             Log log = logs.get(0);
             Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getConfirmedNum());
@@ -107,6 +110,36 @@ public class CovStatJob {
         }).collect();
 //        System.out.println(jsonObjects.size());
         jedis.hset("cov", "bar", jsonObjects.toString());
+        JedisUtil.release(jedis);
+    }
+
+    private static void bar2Data(JavaRDD<CovLog> covRDD) {
+        Jedis jedis = JedisUtil.getJedis();
+        List<String> jsonObjects = covRDD.map((x) -> {
+            // Map
+            ArrayList<Log> logs = x.getSeries();
+            Log log = logs.get(0);
+            Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getDeathsNum());
+            JSONObject jsonObj = new JSONObject(bar_bean);
+            return jsonObj.toString();
+        }).collect();
+        System.out.println(jsonObjects.size());
+        jedis.hset("cov", "bar2", jsonObjects.toString());
+        JedisUtil.release(jedis);
+    }
+
+    private static void bar7Data(JavaRDD<CovLog> covRDD) {
+        Jedis jedis = JedisUtil.getJedis();
+        List<String> jsonObjects = covRDD.map((x) -> {
+            // Map
+            ArrayList<Log> logs = x.getSeries();
+            Log log = logs.get(0);
+            Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getCuresNum());
+            JSONObject jsonObj = new JSONObject(bar_bean);
+            return jsonObj.toString();
+        }).collect();
+        System.out.println(jsonObjects.size());
+        jedis.hset("cov", "bar7", jsonObjects.toString());
         JedisUtil.release(jedis);
     }
 
