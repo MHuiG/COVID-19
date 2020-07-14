@@ -21,7 +21,6 @@ function echarts_7(data) {
             json[i + 1] = temp;
 
         }
-        //console.log(json);
         return json;
     }
 
@@ -32,7 +31,6 @@ function echarts_7(data) {
         values.push(data[i]);
     }
     option = {
-        //  backgroundColor: '#00265f',
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -49,8 +47,6 @@ function echarts_7(data) {
         },
         xAxis: [{
             type: 'category',
-            // data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
-            // data: data['x_name'],
             data: names,
             axisLine: {
                 show: true,
@@ -60,14 +56,11 @@ function echarts_7(data) {
                     type: "solid"
                 },
             },
-
             axisTick: {
                 show: false,
             },
             axisLabel: {
                 interval: 0,
-                // rotate: -5,
-
                 show: true,
                 splitNumber: 15,
                 textStyle: {
@@ -79,7 +72,6 @@ function echarts_7(data) {
         yAxis: [{
             type: 'value',
             axisLabel: {
-                //formatter: '{value} %'
                 show: true,
                 textStyle: {
                     color: "rgba(255,255,255,.6)",
@@ -105,11 +97,8 @@ function echarts_7(data) {
         }],
         series: [{
             type: 'bar',
-            // data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
-            // data: data['data'],
             data: values,
             barWidth: '35%', //柱子宽度
-            // barGap: 5, //柱子之间间距
             itemStyle: {
                 normal: {
                     color: '#00d887',
@@ -120,8 +109,6 @@ function echarts_7(data) {
         }
         ]
     };
-
-    // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     window.addEventListener("resize", function () {
         myChart.resize();

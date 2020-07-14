@@ -43,7 +43,7 @@ public class CovStatJob {
         Logger.getLogger("org.apache.spark").setLevel(Level.WARN);
         Logger.getLogger("org.apache.hadoop").setLevel(Level.WARN);
         Logger.getLogger("org.spark_project").setLevel(Level.WARN);
-        //1.构建入口对象
+        //构建入口对象
         SparkConf conf = new SparkConf()
                 .setAppName("CovJob")
                 .setMaster("local[*]");
@@ -52,12 +52,12 @@ public class CovStatJob {
          */
         Duration batchInterval = Durations.seconds(2);
         JavaStreamingContext jsc = new JavaStreamingContext(conf, batchInterval);
-        //2.从Kafka读取数据
+        //从Kafka读取数据
         JavaPairInputDStream<String, String> messages = createKafkaMsg(jsc);
         //测试
 //        messages.print();
 
-        //3.从拉取到计算
+        //从拉取到计算
         messages.foreachRDD((JavaPairRDD<String, String> rdd, Time time) -> {
             if (!rdd.isEmpty()) {
                 //rdd有数据
@@ -72,9 +72,13 @@ public class CovStatJob {
     }
 
     private static void processRDD(JavaPairRDD<String, String> rdd) {
-        JavaRDD<CovLog> covRDD = rdd.distinct().map((Tuple2<String, String> kv) -> {
-            return CovLog.Str2Bean(kv._2);
-        }).filter(log -> log != null);
+        JavaRDD<CovLog> covRDD0 = rdd.distinct().map((Tuple2<String, String> kv) -> CovLog.Str2Bean(kv._2)).filter(log -> log != null);
+        List<Integer> a = covRDD0.map(x -> x.getSeries().size()).collect();
+        int maxlen = Collections.max(a);
+        JavaRDD<CovLog> covRDD = covRDD0.filter(
+                x -> x.getSeries().size() == maxlen
+        );
+        System.out.println(covRDD.count());
         calcTagert(covRDD);
         bar1Data(covRDD);
         bar2Data(covRDD);

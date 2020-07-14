@@ -1,8 +1,6 @@
 function echarts_4(data) {
-    // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('fb2'));
     option = {
-
         title: [{
             text: '确诊与治愈',
             left: 'center',
@@ -10,7 +8,6 @@ function echarts_4(data) {
                 color: '#fff',
                 fontSize: '16'
             }
-
         }],
         tooltip: {
             trigger: 'item',
