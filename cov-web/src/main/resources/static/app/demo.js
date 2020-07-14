@@ -1,7 +1,7 @@
 function make_map(mapdata) {
     try {
         achart = echarts.init(document.getElementById("美国"));
-        console.log("mapdata==========================>\n" + mapdata);
+        // console.log("mapdata==========================>\n" + mapdata);
         var data = JSON.parse(mapdata);
 
         for (var i = 0; i < data.length; i++) {
@@ -41,11 +41,11 @@ function make_map(mapdata) {
                 orient: 'vertical',
                 left: 'right',
                 top: 'center',
-                feature: {
-                    dataView: {readOnly: false},
-                    restore: {},
-                    saveAsImage: {}
-                }
+                // feature: {
+                //     dataView: {readOnly: false},
+                //     restore: {},
+                //     saveAsImage: {}
+                // }
             },
             visualMap: {
                 min: 1000,
@@ -55,8 +55,8 @@ function make_map(mapdata) {
                 calculable: false,
                 show: false,
                 inRange: {
-                    color: ["#eeff11", "#ffe10a", "#ff840c", "#ff3e09",
-                        "#ff3209", "#ff125d", "#ff18da"]
+                    color: ["#ff0000", "#eb0000", "#d70000", "#c30000",
+                        "#af0000", "#9b0000", "#870000"]
                 }
             },
             "series": [{

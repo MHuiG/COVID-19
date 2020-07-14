@@ -12,6 +12,15 @@
             echarts_31(res['chart3_1']);
             echarts_32(res['chart3_2']);
             echarts_33(res['chart3_3'])
+        }, error: function () {
+            echarts_1();
+            echarts_2();
+            echarts_4();
+            echarts_31();
+            echarts_32();
+            echarts_33();
+            echarts_5();
+            echarts_5_1();
         }
     });
 //echarts_1();
@@ -43,8 +52,8 @@
             },
             xAxis: [{
                 type: 'category',
-                data: data['x_name'],
-                //data: ['湖北', '广东', '浙江', '河南', '湖南'],
+                // data: data['x_name'],
+                data: ['湖北', '广东', '浙江', '河南', '湖南'],
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -98,14 +107,14 @@
             series: [
                 {
                     type: 'bar',
-                    data: data['data'],
-                    // data: [
-                    //     ('湖北', 300),
-                    //     ('广东', 250),
-                    //     ('浙江', 200),
-                    //     ('河南', 150),
-                    //     ('湖南', 100)
-                    // ],
+                    // data: data['data'],
+                    data: [
+                        ('湖北', 300),
+                        ('广东', 250),
+                        ('浙江', 200),
+                        ('河南', 150),
+                        ('湖南', 100)
+                    ],
                     barWidth: '35%', //柱子宽度
                     // barGap: 1, //柱子之间间距
                     itemStyle: {
@@ -146,8 +155,8 @@
             },
             xAxis: [{
                 type: 'category',
-                //data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽'],
-                data: data['x_name'],
+                data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽'],
+                // data: data['x_name'],
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -202,8 +211,8 @@
                 {
 
                     type: 'bar',
-                    //data: [1500, 1200, 600, 200, 300, 300, 900],
-                    data: data['data'],
+                    data: [1500, 1200, 600, 200, 300, 300, 900],
+                    // data: data['data'],
                     barWidth: '35%', //柱子宽度
                     // barGap: 1, //柱子之间间距
                     itemStyle: {
@@ -247,8 +256,8 @@
             },
             xAxis: [{
                 type: 'category',
-                //data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
-                data: data['x_name'],
+                data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
+                // data: data['x_name'],
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -301,8 +310,8 @@
             }],
             series: [{
                 type: 'bar',
-                //data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
-                data: data['data'],
+                data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
+                // data: data['data'],
                 barWidth: '35%', //柱子宽度
                 // barGap: 1, //柱子之间间距
                 itemStyle: {
@@ -346,8 +355,8 @@
             },
             xAxis: [{
                 type: 'category',
-                //data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
-                data: data['x_name'],
+                data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽', '四川'],
+                // data: data['x_name'],
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -400,8 +409,8 @@
             }],
             series: [{
                 type: 'bar',
-                //data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
-                data: data['data'],
+                data: [2, 3, 3, 9, 15, 12, 6, 4, 6, 7, 4, 10],
+                // data: data['data'],
                 barWidth: '35%', //柱子宽度
                 // barGap: 1, //柱子之间间距
                 itemStyle: {
@@ -467,8 +476,8 @@
 
                 },
 
-                //data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
-                data: data['x_name']
+                data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
+                // data: data['x_name']
             }, {
 
                 axisPointer: {show: false},
@@ -534,8 +543,8 @@
                             borderWidth: 12
                         }
                     },
-                    //data: [3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4,3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4]
-                    data: data['confirm']
+                    data: [3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4]
+                    // data: data['confirm']
 
                 },
                 {
@@ -571,8 +580,8 @@
                             borderWidth: 12
                         }
                     },
-                    //data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-                    data: data['suspect']
+                    data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
+                    // data: data['suspect']
 
                 },
                 {
@@ -608,8 +617,8 @@
                             borderWidth: 12
                         }
                     },
-                    //data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-                    data: data['heal']
+                    data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
+                    // data: data['heal']
 
                 },
                 {
@@ -645,8 +654,8 @@
                             borderWidth: 12
                         }
                     },
-                    //data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-                    data: data['dead']
+                    data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
+                    // data: data['dead']
 
                 },
 
@@ -846,11 +855,11 @@
                     color: ['#065aab', '#066eab'],
                     label: {show: false},
                     labelLine: {show: false},
-                    data: data
-                    // data:[
-                    //     {value:1, name:'确诊'},
-                    //     {value:4, name:'死亡'},
-                    // ]
+                    // data: data
+                    data: [
+                        {value: 1, name: '确诊'},
+                        {value: 4, name: '死亡'},
+                    ]
                 }
             ]
         };
@@ -903,11 +912,11 @@
                     color: ['#065aab', '#066eab'],
                     label: {show: false},
                     labelLine: {show: false},
-                    data: data
-                    // data:[
-                    //     {value:5, name:'电子商务'},
-                    //     {value:1, name:'教育'},
-                    // ]
+                    // data: data
+                    data: [
+                        {value: 5, name: '电子商务'},
+                        {value: 1, name: '教育'},
+                    ]
                 }
             ]
         };
@@ -958,11 +967,11 @@
                     color: ['#065aab', '#066eab'],
                     label: {show: false},
                     labelLine: {show: false},
-                    data: data
-                    // data:[
-                    //     {value:2, name:'汽车'},
-                    //     {value:3, name:'旅游'},
-                    // ]
+                    // data: data
+                    data: [
+                        {value: 2, name: '汽车'},
+                        {value: 3, name: '旅游'},
+                    ]
                 }
             ]
         };
