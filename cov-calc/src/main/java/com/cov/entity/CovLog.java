@@ -29,8 +29,8 @@ public class CovLog implements Serializable {
                 log.setConfirmedIncr(one.getInt("confirmedIncr"));
                 log.setConfirmedNum(one.getInt("confirmedNum"));
                 log.setDeathsNum(one.getInt("deathsNum"));
-                log.setConfirmedIncr(one.getInt("asymptomaticIncr"));
-                log.setCuresNum(one.getInt("curesRatio"));
+                log.setAsymptomaticIncr(one.getInt("asymptomaticIncr"));
+                log.setCuresRatio(one.getInt("curesRatio"));
                 log.setTreatingNum(one.getInt("treatingNum"));
                 log.setAsymptomaticNum(one.getInt("asymptomaticNum"));
                 logs.add(log);
@@ -39,6 +39,7 @@ public class CovLog implements Serializable {
             covLog.setId(id);
             covLog.setName(name);
             covLog.setSeries(logs);
+
         } catch (Exception e) {
             return null;
         }

@@ -25,7 +25,7 @@ public class Bar1Controller extends BaseController {
     protected void doMessage(String messages, Session session) throws InterruptedException, IOException {
         while (true) {
             String total = bar1Service.get_data();
-            System.out.println("bar1Service.test===============================>" + total);
+//            System.out.println("bar1Service.test===============================>" + total);
             session.getBasicRemote().sendText(total);
             Thread.sleep(1000);
         }

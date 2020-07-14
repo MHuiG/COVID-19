@@ -15,7 +15,7 @@ public class Bar1ServiceImpl implements Bar1Service {
         Jedis jedis = JedisUtil.getJedis();
         Map<String, String> city_data = jedis.hgetAll("cov");
         JedisUtil.release(jedis);
-        System.out.println(city_data.get("bar"));
+//        System.out.println(city_data.get("bar"));
         return city_data.get("bar");
     }
 }

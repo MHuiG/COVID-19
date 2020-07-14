@@ -1,5 +1,6 @@
 MyWebSocket("get_map_data", make_map);
 MyWebSocket("get_bar1_data", echarts_1);
+// MyWebSocket("get_line6_data", echarts_6);
 // echarts_1();
 echarts_2();
 echarts_3();
