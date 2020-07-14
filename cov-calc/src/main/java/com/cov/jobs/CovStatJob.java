@@ -1,10 +1,8 @@
 package com.cov.jobs;
 
-import com.cov.entity.Bar_Bean;
-import com.cov.entity.CovLog;
-import com.cov.entity.Log;
-import com.cov.entity.MapBean;
+import com.cov.entity.*;
 import com.cov.redis.JedisUtil;
+import com.cov.sort.SortClass;
 import kafka.serializer.StringDecoder;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -79,6 +77,7 @@ public class CovStatJob {
         }).filter(log -> log != null);
         calcTagert(covRDD);
         bar1Data(covRDD);
+        line6Data(covRDD);
     }
 
     private static void calcTagert(JavaRDD<CovLog> covRDD) {
@@ -91,7 +90,7 @@ public class CovStatJob {
             JSONObject jsonObj = new JSONObject(mapBean);
             return jsonObj.toString();
         }).collect();
-        System.out.println(jsonObjects.size());
+//        System.out.println(jsonObjects.size());
         jedis.hset("cov", "map", jsonObjects.toString());
         JedisUtil.release(jedis);
 
@@ -100,16 +99,85 @@ public class CovStatJob {
     private static void bar1Data(JavaRDD<CovLog> covRDD) {
         Jedis jedis = JedisUtil.getJedis();
         List<String> jsonObjects = covRDD.map((x) -> {
-            // Map
             ArrayList<Log> logs = x.getSeries();
             Log log = logs.get(0);
             Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getConfirmedNum());
             JSONObject jsonObj = new JSONObject(bar_bean);
             return jsonObj.toString();
         }).collect();
-        System.out.println(jsonObjects.size());
+//        System.out.println(jsonObjects.size());
         jedis.hset("cov", "bar", jsonObjects.toString());
         JedisUtil.release(jedis);
     }
 
+    private static void line6Data(JavaRDD<CovLog> covRDD) {
+        JavaPairRDD<String, Double> retRDD = covRDD.flatMapToPair((CovLog cLog) -> {
+            List<Tuple2<String, Double>> list = new ArrayList<Tuple2<String, Double>>();
+            for (int i = 0; i < cLog.getSeries().size(); i++) {
+                list.add(new Tuple2<String, Double>(cLog.getSeries().get(i).getDate() + "_confirmedNum", (double) cLog.getSeries().get(i).getConfirmedNum()));
+                list.add(new Tuple2<String, Double>(cLog.getSeries().get(i).getDate() + "_curesNum", (double) cLog.getSeries().get(i).getCuresNum()));
+                list.add(new Tuple2<String, Double>(cLog.getSeries().get(i).getDate() + "_deathsNum", (double) cLog.getSeries().get(i).getDeathsNum()));
+                list.add(new Tuple2<String, Double>(cLog.getSeries().get(i).getDate() + "_treatingNum", (double) cLog.getSeries().get(i).getTreatingNum()));
+            }
+            return list.iterator();
+        }).reduceByKey((v1, v2) -> v1 + v2);
+        List<Line6Bean> line6Beans = retRDD.map((x) -> {
+            Tuple2<String, Double> kv = x;
+            String key = kv._1;
+            String k1 = key.split("_")[0];
+            String k2 = key.split("_")[1];
+            int v = kv._2.intValue();
+            Line6Bean line6Bean = new Line6Bean(k1, k2, v);
+            return line6Bean;
+        }).collect();
+        ArrayList<Line6Bean> confirmedNums = new ArrayList<>();
+        ArrayList<Line6Bean> curesNums = new ArrayList<>();
+        ArrayList<Line6Bean> deathsNums = new ArrayList<>();
+        ArrayList<Line6Bean> treatingNums = new ArrayList<>();
+        for (int i = 0; i < line6Beans.size(); i++) {
+            if (line6Beans.get(i).getType().equals("confirmedNum")) {
+                confirmedNums.add(line6Beans.get(i));
+            } else if (line6Beans.get(i).getType().equals("curesNum")) {
+                curesNums.add(line6Beans.get(i));
+            } else if (line6Beans.get(i).getType().equals("deathsNum")) {
+                deathsNums.add(line6Beans.get(i));
+            } else if (line6Beans.get(i).getType().equals("treatingNum")) {
+                treatingNums.add(line6Beans.get(i));
+            }
+        }
+        SortClass sortClass = new SortClass();
+        Collections.sort(confirmedNums, sortClass);
+        Collections.sort(curesNums, sortClass);
+        Collections.sort(deathsNums, sortClass);
+        Collections.sort(treatingNums, sortClass);
+        ArrayList<String> date = new ArrayList<>();
+        ArrayList<Integer> confirmedNum = new ArrayList<>();
+        ArrayList<Integer> curesNum = new ArrayList<>();
+        ArrayList<Integer> deathsNum = new ArrayList<>();
+        ArrayList<Integer> treatingNum = new ArrayList<>();
+        for (int i = 0; i < confirmedNums.size(); i++) {
+            date.add(confirmedNums.get(i).getDate());
+            confirmedNum.add(confirmedNums.get(i).getNum());
+            curesNum.add(curesNums.get(i).getNum());
+            deathsNum.add(deathsNums.get(i).getNum());
+            treatingNum.add(treatingNums.get(i).getNum());
+        }
+        ListEntity listEntitydate = new ListEntity("date", date);
+        JSONObject jsonObjdate = new JSONObject(listEntitydate);
+        ListEntity listEntityconfirmedNum = new ListEntity("confirmedNum", confirmedNum);
+        JSONObject jsonObjconfirmedNum = new JSONObject(listEntityconfirmedNum);
+        ListEntity listEntitycuresNum = new ListEntity("curesNum", curesNum);
+        JSONObject jsonObjcuresNum = new JSONObject(listEntitycuresNum);
+        ListEntity listEntitydeathsNum = new ListEntity("deathsNum", deathsNum);
+        JSONObject jsonObjdeathsNum = new JSONObject(listEntitydeathsNum);
+        ListEntity listEntitytreatingNum = new ListEntity("treatingNum", treatingNum);
+        JSONObject jsonObjtreatingNum = new JSONObject(listEntitytreatingNum);
+        Jedis jedis = JedisUtil.getJedis();
+        jedis.hset("cov", "line6_date", jsonObjdate.toString());
+        jedis.hset("cov", "line6_confirmedNum", jsonObjconfirmedNum.toString());
+        jedis.hset("cov", "line6_curesNum", jsonObjcuresNum.toString());
+        jedis.hset("cov", "line6_deathsNum", jsonObjdeathsNum.toString());
+        jedis.hset("cov", "line6_treatingNum", jsonObjtreatingNum.toString());
+        JedisUtil.release(jedis);
+    }
 }

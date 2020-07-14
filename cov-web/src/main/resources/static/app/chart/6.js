@@ -1,7 +1,22 @@
 function echarts_6(data) {
-    // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart4'));
-
+    if (!data) {
+        data = {};
+        data.name = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
+        data.a = [3, 5, 3, 42, 3, 42, 3, 6, 2, 4, 2, 44, 3, 44, 3, 4, 3, 4, 43, 6, 2, 10, 2, 43];
+        data.b = [3, 4, 3, 5, 3, 4, 32, 61, 2, 4, 42, 41, 23, 4, 3, 4, 3, 54, 3, 6, 24, 10, 2, 24];
+        data.c = [3, 43, 3, 4, 5, 24, 3, 62, 2, 44, 2, 44, 3, 4, 33, 4, 3, 4, 31, 6, 2, 10, 2, 14];
+        data.d = [3, 4, 3, 4, 13, 8, 31, 7, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 53, 6, 22, 10, 22, 44];
+    } else {
+        mydata = data;
+        data = {};
+        data.name = JSON.parse(mydata.name).list;
+        data.a = JSON.parse(mydata.a).list;
+        data.b = JSON.parse(mydata.b).list;
+        data.c = JSON.parse(mydata.c).list;
+        data.d = JSON.parse(mydata.d).list;
+    }
+    // console.log(data);
     option = {
         tooltip: {
             trigger: 'axis',
@@ -13,7 +28,6 @@ function echarts_6(data) {
         },
         legend: {
             top: '0%',
-            //data:['安卓','IOS'],
             textStyle: {
                 color: 'rgba(255,255,255,.5)',
                 fontSize: '12',
@@ -43,8 +57,7 @@ function echarts_6(data) {
 
             },
 
-            data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
-            // data: data['x_name']
+            data: data.name
         }, {
 
             axisPointer: {show: false},
@@ -85,7 +98,6 @@ function echarts_6(data) {
                 symbolSize: 5,
                 showSymbol: false,
                 lineStyle: {
-
                     normal: {
                         color: '#d5110d',
                         width: 2
@@ -110,9 +122,7 @@ function echarts_6(data) {
                         borderWidth: 12
                     }
                 },
-                data: [3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 3, 6, 2, 4, 2, 4]
-                // data: data['confirm']
-
+                data: data.a
             },
             {
                 name: '疑似',
@@ -147,8 +157,7 @@ function echarts_6(data) {
                         borderWidth: 12
                     }
                 },
-                data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-                // data: data['suspect']
+                data: data.b
 
             },
             {
@@ -184,8 +193,7 @@ function echarts_6(data) {
                         borderWidth: 12
                     }
                 },
-                data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-                // data: data['heal']
+                data: data.c
 
             },
             {
@@ -221,11 +229,9 @@ function echarts_6(data) {
                         borderWidth: 12
                     }
                 },
-                data: [5, 3, 5, 6, 1, 5, 3, 5, 6, 4, 6, 4, 8, 3, 5, 6, 1, 5, 3, 7, 2, 5, 1, 4]
-                // data: data['dead']
+                data: data.d
 
             },
-
         ]
 
     };
