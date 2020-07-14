@@ -30,7 +30,7 @@ public class CovLog implements Serializable {
                 log.setConfirmedNum(one.getInt("confirmedNum"));
                 log.setDeathsNum(one.getInt("deathsNum"));
                 log.setAsymptomaticIncr(one.getInt("asymptomaticIncr"));
-                log.setCuresRatio(one.getInt("curesRatio"));
+                log.setCuresRatio(one.getDouble("curesRatio"));
                 log.setTreatingNum(one.getInt("treatingNum"));
                 log.setAsymptomaticNum(one.getInt("asymptomaticNum"));
                 logs.add(log);
