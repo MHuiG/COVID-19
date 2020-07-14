@@ -1,5 +1,6 @@
 MyWebSocket("get_map_data", make_map);
-echarts_1();
+MyWebSocket("get_bar1_data", echarts_1);
+// echarts_1();
 echarts_2();
 echarts_3();
 echarts_4();
@@ -16,7 +17,7 @@ function MyWebSocket(url, fun) {
 
     ws.onmessage = function (evt) {
         // console.log(evt.data);
-        fun(evt.data);
+        fun(JSON.parse(evt.data));
     };
 
     ws.onclose = function () {

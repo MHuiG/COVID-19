@@ -1,5 +1,6 @@
 package com.cov.jobs;
 
+import com.cov.entity.Bar_Bean;
 import com.cov.entity.CovLog;
 import com.cov.entity.Log;
 import com.cov.entity.MapBean;
@@ -77,6 +78,7 @@ public class CovStatJob {
             return CovLog.Str2Bean(kv._2);
         }).filter(log -> log != null);
         calcTagert(covRDD);
+        bar1Data(covRDD);
     }
 
     private static void calcTagert(JavaRDD<CovLog> covRDD) {
@@ -93,6 +95,21 @@ public class CovStatJob {
         jedis.hset("cov", "map", jsonObjects.toString());
         JedisUtil.release(jedis);
 
+    }
+
+    private static void bar1Data(JavaRDD<CovLog> covRDD) {
+        Jedis jedis = JedisUtil.getJedis();
+        List<String> jsonObjects = covRDD.map((x) -> {
+            // Map
+            ArrayList<Log> logs = x.getSeries();
+            Log log = logs.get(0);
+            Bar_Bean bar_bean = new Bar_Bean(x.getName(), log.getConfirmedNum());
+            JSONObject jsonObj = new JSONObject(bar_bean);
+            return jsonObj.toString();
+        }).collect();
+        System.out.println(jsonObjects.size());
+        jedis.hset("cov", "bar", jsonObjects.toString());
+        JedisUtil.release(jedis);
     }
 
 }

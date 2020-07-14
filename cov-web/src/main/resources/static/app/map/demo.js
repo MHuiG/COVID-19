@@ -3,9 +3,9 @@ function make_map(mapdata) {
         achart = echarts.init(document.getElementById("美国"));
         // console.log("mapdata==========================>\n" + mapdata);
         if (!mapdata) {
-            mapdata = `[{"deathsRatio":0.023154847,"curesNum":0,"confirmedIncr":0,"name":"West Virginia","deathsNum":96,"confirmedNum":4146,"asymptomaticIncr":0,"treatingNum":2385,"curesRatio":0,"asymptomaticNum":0,"value":4146}]`;
+            mapdata = JSON.parse(`[{"deathsRatio":0.023154847,"curesNum":0,"confirmedIncr":0,"name":"West Virginia","deathsNum":96,"confirmedNum":4146,"asymptomaticIncr":0,"treatingNum":2385,"curesRatio":0,"asymptomaticNum":0,"value":4146}]`);
         }
-        var data = JSON.parse(mapdata);
+        var data = mapdata;
 
         for (var i = 0; i < data.length; i++) {
             data[i].value = data[i].confirmedNum;

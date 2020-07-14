@@ -1,12 +1,21 @@
 function echarts_1(data) {
     var myChart = echarts.init(document.getElementById('echart1'));
+    var values = [];
+    console.log(data);
+    for (var i = 0; i < 5; i++) {
+        values[i] = data[i].value;
+    }
+    console.log(values);
 
     option = {
         //  backgroundColor: '#00265f',
         tooltip: {
-            trigger: 'axis',
+            trigger: 'item',
             axisPointer: {
                 type: 'shadow'
+            },
+            formatter: function (params) {
+                return params["data"].name + "<br/>" + params["data"].value
             }
         },
         grid: {
@@ -19,7 +28,8 @@ function echarts_1(data) {
         xAxis: [{
             type: 'category',
             // data: data['x_name'],
-            data: ['湖北', '广东', '浙江', '河南', '湖南'],
+            data: data,
+            // data: ['NewYork', 'California', 'Texas', 'Florida', 'Illinois'],
             axisLine: {
                 show: true,
                 lineStyle: {
@@ -73,14 +83,14 @@ function echarts_1(data) {
         series: [
             {
                 type: 'bar',
-                // data: data['data'],
-                data: [
-                    ('湖北', 300),
-                    ('广东', 250),
-                    ('浙江', 200),
-                    ('河南', 150),
-                    ('湖南', 100)
-                ],
+                data: data,
+                // data: [
+                //     ('湖北', 300),
+                //     ('广东', 250),
+                //     ('浙江', 200),
+                //     ('河南', 150),
+                //     ('湖南', 100)
+                // ],
                 barWidth: '35%', //柱子宽度
                 // barGap: 1, //柱子之间间距
                 itemStyle: {
