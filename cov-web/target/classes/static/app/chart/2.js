@@ -1,49 +1,11 @@
-function echarts_1(data) {
-    var myChart = echarts.init(document.getElementById('echart1'));
-    var values = [];
-    var names = [];
-
-    /*
-    json:需要排序的json
-    key:排序项
-    */
-    function JsonSort(json, key) {
-        //console.log(json);
-        for (var j = 1, jl = json.length; j < jl; j++) {
-            var temp = json[j],
-                val = temp[key],
-                i = j - 1;
-            while (i >= 0 && json[i][key] > val) {
-                json[i + 1] = json[i];
-                i = i - 1;
-            }
-            json[i + 1] = temp;
-
-        }
-        //console.log(json);
-        return json;
-    }
-
-    data = JsonSort(data, "value")
-    console.log();
-    for (var i = data.length - 5; i < data.length; i++) {
-        names.push(data[i].name);
-        values.push(data[i]);
-
-    }
-    // console.log(names);
-    // console.log(values);
+function echarts_2(data) {
+    var myChart = echarts.init(document.getElementById('echart2'));
 
     option = {
         //  backgroundColor: '#00265f',
         tooltip: {
-            trigger: 'item',
-            axisPointer: {
-                type: 'shadow'
-            },
-            formatter: function (params) {
-                return params["data"].name + "<br/>" + params["data"].value
-            }
+            trigger: 'axis',
+            axisPointer: {type: 'shadow'}
         },
         grid: {
             left: '0%',
@@ -54,9 +16,8 @@ function echarts_1(data) {
         },
         xAxis: [{
             type: 'category',
+            data: ['浙江', '上海', '江苏', '广东', '北京', '深圳', '安徽'],
             // data: data['x_name'],
-            data: names,
-            // data: ['NewYork', 'California', 'Texas', 'Florida', 'New Jersey'],
             axisLine: {
                 show: true,
                 lineStyle: {
@@ -67,7 +28,7 @@ function echarts_1(data) {
             },
 
             axisTick: {
-                show: false
+                show: false,
             },
             axisLabel: {
                 interval: 0,
@@ -109,13 +70,15 @@ function echarts_1(data) {
         }],
         series: [
             {
+
                 type: 'bar',
-                data: values,
+                data: [1500, 1200, 600, 200, 300, 300, 900],
+                // data: data['data'],
                 barWidth: '35%', //柱子宽度
                 // barGap: 1, //柱子之间间距
                 itemStyle: {
                     normal: {
-                        color: '#074ad5',
+                        color: '#d2d1d8',
                         opacity: 1,
                         barBorderRadius: 5,
                     }
