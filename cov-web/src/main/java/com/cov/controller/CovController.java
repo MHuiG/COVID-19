@@ -25,7 +25,7 @@ public class CovController extends BaseController {
     protected void doMessage(String messages, Session session) throws InterruptedException, IOException {
         while (true) {
             String total = covService.test();
-            System.out.println("covService.test===============================>" + total);
+//            System.out.println("covService.test===============================>" + total);
             session.getBasicRemote().sendText(total);
             Thread.sleep(1000);
         }
