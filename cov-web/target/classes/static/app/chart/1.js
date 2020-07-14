@@ -1,11 +1,38 @@
 function echarts_1(data) {
     var myChart = echarts.init(document.getElementById('echart1'));
     var values = [];
-    console.log(data);
-    for (var i = 0; i < 5; i++) {
-        values[i] = data[i].value;
+    var names = [];
+
+    /*
+    json:需要排序的json
+    key:排序项
+    */
+    function JsonSort(json, key) {
+        //console.log(json);
+        for (var j = 1, jl = json.length; j < jl; j++) {
+            var temp = json[j],
+                val = temp[key],
+                i = j - 1;
+            while (i >= 0 && json[i][key] > val) {
+                json[i + 1] = json[i];
+                i = i - 1;
+            }
+            json[i + 1] = temp;
+
+        }
+        //console.log(json);
+        return json;
     }
-    console.log(values);
+
+    data = JsonSort(data, "value")
+    console.log();
+    for (var i = data.length - 5; i < data.length; i++) {
+        names.push(data[i].name);
+        values.push(data[i]);
+
+    }
+    // console.log(names);
+    // console.log(values);
 
     option = {
         //  backgroundColor: '#00265f',
@@ -28,8 +55,8 @@ function echarts_1(data) {
         xAxis: [{
             type: 'category',
             // data: data['x_name'],
-            data: data,
-            // data: ['NewYork', 'California', 'Texas', 'Florida', 'Illinois'],
+            data: names,
+            // data: ['NewYork', 'California', 'Texas', 'Florida', 'New Jersey'],
             axisLine: {
                 show: true,
                 lineStyle: {
@@ -83,19 +110,12 @@ function echarts_1(data) {
         series: [
             {
                 type: 'bar',
-                data: data,
-                // data: [
-                //     ('湖北', 300),
-                //     ('广东', 250),
-                //     ('浙江', 200),
-                //     ('河南', 150),
-                //     ('湖南', 100)
-                // ],
+                data: values,
                 barWidth: '35%', //柱子宽度
                 // barGap: 1, //柱子之间间距
                 itemStyle: {
                     normal: {
-                        color: '#d5110d',
+                        color: '#074ad5',
                         opacity: 1,
                         barBorderRadius: 5,
                     }
