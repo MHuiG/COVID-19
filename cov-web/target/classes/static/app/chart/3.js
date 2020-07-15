@@ -1,5 +1,11 @@
 function echarts_3(data) {
     var myChart = echarts.init(document.getElementById('fb1'));
+
+    mydata = data;
+    len = JSON.parse(mydata.a).list.length
+    data = {};
+    data.a = JSON.parse(mydata.a).list[len - 1];
+    data.c = JSON.parse(mydata.c).list[len - 1];
     option = {
         title: [{
             text: '确诊与死亡',
@@ -39,8 +45,8 @@ function echarts_3(data) {
                 labelLine: {show: false},
                 // data: data
                 data: [
-                    {value: 1, name: '确诊'},
-                    {value: 4, name: '死亡'},
+                    {value: data.a, name: '确诊'},
+                    {value: data.c, name: '死亡'},
                 ]
             }
         ]

@@ -1,21 +1,13 @@
 function echarts_6(data) {
     var myChart = echarts.init(document.getElementById('echart4'));
-    if (!data) {
-        data = {};
-        data.name = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
-        data.a = [3, 5, 3, 42, 3, 42, 3, 6, 2, 4, 2, 44, 3, 44, 3, 4, 3, 4, 43, 6, 2, 10, 2, 43];
-        data.b = [3, 4, 3, 5, 3, 4, 32, 61, 2, 4, 42, 41, 23, 4, 3, 4, 3, 54, 3, 6, 24, 10, 2, 24];
-        data.c = [3, 43, 3, 4, 5, 24, 3, 62, 2, 44, 2, 44, 3, 4, 33, 4, 3, 4, 31, 6, 2, 10, 2, 14];
-        data.d = [3, 4, 3, 4, 13, 8, 31, 7, 2, 4, 2, 4, 3, 4, 3, 4, 3, 4, 53, 6, 22, 10, 22, 44];
-    } else {
-        mydata = data;
-        data = {};
-        data.name = JSON.parse(mydata.name).list;
-        data.a = JSON.parse(mydata.a).list;
-        data.b = JSON.parse(mydata.b).list;
-        data.c = JSON.parse(mydata.c).list;
-        data.d = JSON.parse(mydata.d).list;
-    }
+
+    mydata = data;
+    data = {};
+    data.name = JSON.parse(mydata.name).list;
+    data.a = JSON.parse(mydata.a).list;
+    data.b = JSON.parse(mydata.b).list;
+    data.c = JSON.parse(mydata.c).list;
+    data.d = JSON.parse(mydata.d).list;
     // console.log(data);
     option = {
         tooltip: {
@@ -118,7 +110,7 @@ function echarts_6(data) {
                 data: data.a
             },
             {
-                name: '疑似',
+                name: '治愈',
                 type: 'line',
                 smooth: true,
                 symbol: 'circle',
@@ -154,7 +146,7 @@ function echarts_6(data) {
 
             },
             {
-                name: '治愈',
+                name: '死亡',
                 type: 'line',
                 smooth: true,
                 symbol: 'circle',
@@ -190,7 +182,7 @@ function echarts_6(data) {
 
             },
             {
-                name: '死亡',
+                name: '在院',
                 type: 'line',
                 smooth: true,
                 symbol: 'circle',

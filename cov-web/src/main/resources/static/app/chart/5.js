@@ -1,6 +1,11 @@
 function echarts_5(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('fb3'));
+    mydata = data;
+    len = JSON.parse(mydata.a).list.length
+    data = {};
+    data.b = JSON.parse(mydata.b).list[len - 1];
+    data.c = JSON.parse(mydata.c).list[len - 1];
     option = {
         title: [{
             text: '死亡与治愈',
@@ -39,8 +44,8 @@ function echarts_5(data) {
                 labelLine: {show: false},
                 // data: data
                 data: [
-                    {value: 2, name: '死亡'},
-                    {value: 3, name: '治愈'},
+                    {value: data.b, name: '死亡'},
+                    {value: data.c, name: '治愈'},
                 ]
             }
         ]

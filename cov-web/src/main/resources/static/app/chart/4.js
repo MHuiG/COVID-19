@@ -1,5 +1,11 @@
 function echarts_4(data) {
     var myChart = echarts.init(document.getElementById('fb2'));
+    mydata = data;
+    len = JSON.parse(mydata.a).list.length
+    data = {};
+    data.a = JSON.parse(mydata.a).list[len - 1];
+    data.b = JSON.parse(mydata.b).list[len - 1];
+
     option = {
         title: [{
             text: '确诊与治愈',
@@ -38,8 +44,8 @@ function echarts_4(data) {
                 labelLine: {show: false},
                 // data: data
                 data: [
-                    {value: 5, name: '确诊'},
-                    {value: 1, name: '治愈'},
+                    {value: data.a, name: '确诊'},
+                    {value: data.b, name: '治愈'},
                 ]
             }
         ]

@@ -9,6 +9,7 @@ abstract public class BaseController {
     @OnMessage
     public void onMessage(String messages, Session session)
             throws IOException, InterruptedException {
+
         doMessage(messages, session);
     }
 
@@ -17,7 +18,7 @@ abstract public class BaseController {
     @OnError
     public void onError(Session session, Throwable error) {
         System.out.println("发生错误");
-        error.printStackTrace();
+//        error.printStackTrace();
     }
 
     @OnOpen
