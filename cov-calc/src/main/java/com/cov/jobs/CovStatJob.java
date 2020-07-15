@@ -74,10 +74,7 @@ public class CovStatJob {
     private static void processRDD(JavaPairRDD<String, String> rdd) {
         JavaRDD<CovLog> covRDD0 = rdd.distinct().map((Tuple2<String, String> kv) -> CovLog.Str2Bean(kv._2)).filter(log -> log != null);
         List<Integer> a = covRDD0.map(x -> x.getSeries().size()).collect();
-        int maxlen = Collections.max(a);
-        JavaRDD<CovLog> covRDD = covRDD0.filter(
-                x -> x.getSeries().size() == maxlen
-        );
+        JavaRDD<CovLog> covRDD = covRDD0.filter(x -> x.getSeries().size() == Collections.max(a));
         System.out.println(covRDD.count());
         calcTagert(covRDD);
         bar1Data(covRDD);
