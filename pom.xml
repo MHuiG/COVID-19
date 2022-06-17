@@ -24,7 +24,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spark.version>2.2.2</spark.version>
-        <fastjson.version>1.2.25.sec10</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <jedis.version>3.2.0</jedis.version>
         <commons-lang3.version>3.7</commons-lang3.version>
     </properties>
